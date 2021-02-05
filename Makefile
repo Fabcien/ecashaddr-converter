@@ -12,9 +12,9 @@ svc:
 image:
 	docker build -t addrconvsvc .
 
-run:
+run: image
 	docker run -p 8888:3000 addrconvsvc
-	
+
 clean:
 	rm -vf addrconv svc
 
