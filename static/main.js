@@ -5,7 +5,7 @@
 ;(() => {
 
 // blacklist test vectors from spec (known fake addresses)
-const BLACKLIST = [
+const BLACKLIST = [/*
   'prefix:x64nx6hz',
   'p:gpf8m4h7',
   'bitcoincash:qpzry9x8gf2tvdw0s3jn54khce6mua7lcw20ayyn',
@@ -55,7 +55,7 @@ const BLACKLIST = [
   'bchtest:plg0x333p4238k0qrc5ej7rzfw5g8e4a4r6vvzyrcy8j3s5k0en7calvclhw46hudk5flttj6ydvjc0pv3nchp52amk97tqa5zygg96mc773cwez',
   'pref:plg0x333p4238k0qrc5ej7rzfw5g8e4a4r6vvzyrcy8j3s5k0en7calvclhw46hudk5flttj6ydvjc0pv3nchp52amk97tqa5zygg96mg7pj3lh8',
   'prefix:0lg0x333p4238k0qrc5ej7rzfw5g8e4a4r6vvzyrcy8j3s5k0en7calvclhw46hudk5flttj6ydvjc0pv3nchp52amk97tqa5zygg96ms92w6845'
-];
+*/];
 
 document.addEventListener('DOMContentLoaded', () => {
   const dispatch = ui.initialize({
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         address: ''
       },
       address: {},
-      tab: 'cashaddr',
+      tab: 'ecashaddr',
       error: ''
     },
 
@@ -79,10 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
         'click': ['dismiss-error']
       },
       'click-tab': {
-        'click': ['cashaddr-tab', 'copay-tab', 'legacy-tab']
+        'click': ['ecashaddr-tab', 'bitcoincashaddr-tab', 'copay-tab', 'legacy-tab']
       },
       'copy': {
-        'click': ['copy-cashaddr', 'copy-copay', 'copy-legacy']
+        'click': ['copy-ecashaddr', 'copy-bitcoincashaddr', 'copy-copay', 'copy-legacy']
       },
       'change-address': {
         'input': ['address']
@@ -199,8 +199,11 @@ const react = (old, action, payload) => (state, render, dispatch) => {
 
   case 'copy':
     switch (payload.name) {
-    case 'copy-cashaddr':
-      ui.element('cashaddr-address').select();
+    case 'copy-ecashaddr':
+      ui.element('ecashaddr-address').select();
+      break;
+    case 'copy-bitcoincashaddr':
+      ui.element('bitcoincashaddr-address').select();
       break;
     case 'copy-copay':
       ui.element('copay-address').select();
@@ -259,28 +262,46 @@ const scenes = {
     ${scenes.form(scenes, state)}
     <div id="qr-codes">
       <div id="tabs">
-        <button class="tab${state.tab === 'cashaddr' ? ' selected-tab' : ''}"
-          id="cashaddr-tab" name="cashaddr">
-          CashAddr
+        <button class="tab${state.tab === 'ecashaddr' ? ' selected-tab' : ''}"
+          id="ecashaddr-tab" name="ecashaddr">
+          ECash
+        </button>
+        <button class="tab${state.tab === 'bitcoincashaddr' ? ' selected-tab' : ''}"
+          id="bitcoincashaddr-tab" name="bitcoincashaddr">
+          Bitcoin Cash
         </button>
         <button class="tab${state.tab === 'legacy' ? ' selected-tab' : ''}"
           id="legacy-tab" name="legacy">
           Legacy
         </button>
       </div>
-      <div class="qr-card${state.tab === 'cashaddr' ? ' selected-tab' : ''}">
+      <div class="qr-card${state.tab === 'ecashaddr' ? ' selected-tab' : ''}">
         <div class="qr-address">
           <input readonly type="text"
-            id="cashaddr-address"
-            name="cashaddr"
-            value="${state.address.cashaddr}" />
-          <button id="copy-cashaddr"
-            title="copy cashaddr to clipboard"
-            name="copy-cashaddr">
+            id="ecashaddr-address"
+            name="ecashaddr"
+            value="${state.address.ecashaddr}" />
+          <button id="copy-ecashaddr"
+            title="Copy ECash address to clipboard"
+            name="copy-ecashaddr">
             <span class="ion-clipboard"></span>
           </button>
         </div>
-        <div id="cashaddr" class="qr-code"></div>
+        <div id="ecashaddr" class="qr-code"></div>
+      </div>
+      <div class="qr-card${state.tab === 'bitcoincashaddr' ? ' selected-tab' : ''}">
+        <div class="qr-address">
+          <input readonly type="text"
+            id="bitcoincashaddr-address"
+            name="bitcoincashaddr"
+            value="${state.address.bitcoincashaddr}" />
+          <button id="copy-bitcoincashaddr"
+            title="Copy Bitcoin Cash address to clipboard"
+            name="copy-bitcoincashaddr">
+            <span class="ion-clipboard"></span>
+          </button>
+        </div>
+        <div id="bitcoincashaddr" class="qr-code"></div>
       </div>
       <div class="qr-card${state.tab === 'legacy' ? ' selected-tab' : ''}">
         <div class="qr-address">
@@ -289,7 +310,7 @@ const scenes = {
             name="legacy"
             value="${state.address.legacy}" />
           <button id="copy-legacy"
-            title="copy legacy address to clipboard"
+            title="Copy legacy address to clipboard"
             name="copy-legacy">
             <span class="ion-clipboard"></span>
           </button>
@@ -305,12 +326,12 @@ const scenes = {
         <div id="message-container">
           <div id="message">
             <p>
-              Enter a Bitcoin Cash address below to convert it into either the new
-              CashAddr format or Legacy format.
+              Enter an ECash address below to convert it into the Bitcoin Cash
+              format or Legacy format.
             </p>
             <p>
               See
-              <a href="https://www.bitcoinabc.org/cashaddr">https://www.bitcoinabc.org/cashaddr</a>
+              <a href="https://www.bitcoinabc.org">https://www.bitcoinabc.org/</a>
               for more information.
             </p>
           </div>
