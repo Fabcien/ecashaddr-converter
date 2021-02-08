@@ -8,11 +8,26 @@ type Address struct {
 	Payload []uint8
 }
 
-// List of valid cashaddress prefixes
-const (
-	RegTest = "bchreg"
-	TestNet = "bchtest"
-	MainNet = "bitcoincash"
+type CurrencyPrefix struct {
+	RegTest string
+	TestNet string
+	MainNet string	
+}
+
+var(
+	// List of valid Bitcoin Cash prefixes
+	BitcoinCash = CurrencyPrefix{
+		RegTest: "bchreg",
+		TestNet: "bchtest",
+		MainNet: "bitcoincash",
+	}
+
+	// List of valid ecash prefixes
+	ECash = CurrencyPrefix{
+		RegTest: "ecregtest",
+		TestNet: "ectest",
+		MainNet: "ecash",
+	}
 )
 
 // Valid cashaddress types

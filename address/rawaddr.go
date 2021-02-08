@@ -37,7 +37,7 @@ func NewFromString(addr string) (*Address, error) {
 		return addr, nil
 	}
 
-	cashaddr, err := cashaddress.Decode(addr, cashaddress.MainNet)
+	cashaddr, err := cashaddress.Decode(addr, cashaddress.BitcoinCash.MainNet)
 	if err == nil {
 		addr, err := NewFromCashAddress(cashaddr)
 		if err != nil {
@@ -56,11 +56,11 @@ func NewFromCashAddress(addr *cashaddress.Address) (*Address, error) {
 	var addrtype = P2SH
 
 	switch addr.Prefix {
-	case cashaddress.MainNet:
+	case cashaddress.BitcoinCash.MainNet:
 		network = MainNet
-	case cashaddress.TestNet:
+	case cashaddress.BitcoinCash.TestNet:
 		network = TestNet
-	case cashaddress.RegTest:
+	case cashaddress.BitcoinCash.RegTest:
 		network = RegTest
 	default:
 		return nil, errors.New("invalid address network")
@@ -158,16 +158,16 @@ func (addr *Address) Hex() string {
 // CashAddress converts various address fields to create a
 // `*cashaddress.Address`
 func (addr *Address) CashAddress() (*cashaddress.Address, error) {
-	var network = cashaddress.MainNet
+	var network = cashaddress.BitcoinCash.MainNet
 	var addrtype = cashaddress.P2SH
 
 	switch addr.Network {
 	case MainNet:
-		network = cashaddress.MainNet
+		network = cashaddress.BitcoinCash.MainNet
 	case TestNet:
-		network = cashaddress.TestNet
+		network = cashaddress.BitcoinCash.TestNet
 	case RegTest:
-		network = cashaddress.RegTest
+		network = cashaddress.BitcoinCash.RegTest
 	default:
 		return nil, errors.New("invalid address network")
 	}
