@@ -3,18 +3,28 @@ package common
 import "github.com/Fabcien/cashaddr-converter/address"
 
 type Output struct {
-	CashAddr string `json:"cashaddr,omitempty"`
+	ECashAddr string `json:"ecashaddr,omitempty"`
+	BitcoinCashAddr string `json:"bitcoincashaddr,omitempty"`
 	Legacy   string `json:"legacy,omitempty"`
 	Copay    string `json:"copay,omitempty"`
 	Hash     string `json:"hash,omitempty"`
 }
 
 func GetAllFormats(addr *address.Address) (*Output, error) {
-	cashaddr, err := addr.CashAddress()
+	ecashaddr, err := addr.ECashAddress()
 	if err != nil {
 		return nil, err
 	}
-	cashaddrstr, err := cashaddr.Encode()
+	ecashaddrstr, err := ecashaddr.Encode()
+	if err != nil {
+		return nil, err
+	}
+
+	bitcoincashaddr, err := addr.BitcoinCashAddress()
+	if err != nil {
+		return nil, err
+	}
+	bitcoincashaddrstr, err := bitcoincashaddr.Encode()
 	if err != nil {
 		return nil, err
 	}
@@ -38,7 +48,8 @@ func GetAllFormats(addr *address.Address) (*Output, error) {
 	}
 
 	return &Output{
-		CashAddr: cashaddrstr,
+		ECashAddr: ecashaddrstr,
+		BitcoinCashAddr: bitcoincashaddrstr,
 		Legacy:   oldstr,
 		Copay:    copaystr,
 		Hash:     addr.Hex(),

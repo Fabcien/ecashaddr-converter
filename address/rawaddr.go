@@ -37,9 +37,18 @@ func NewFromString(addr string) (*Address, error) {
 		return addr, nil
 	}
 
-	cashaddr, err := cashaddress.Decode(addr, cashaddress.BitcoinCash.MainNet)
+	bitcoincashaddr, err := cashaddress.Decode(addr, cashaddress.BitcoinCash.MainNet)
 	if err == nil {
-		addr, err := NewFromCashAddress(cashaddr)
+		addr, err := NewFromCashAddress(bitcoincashaddr)
+		if err != nil {
+			return nil, err
+		}
+		return addr, nil
+	}
+
+	ecashaddr, err := cashaddress.Decode(addr, cashaddress.ECash.MainNet)
+	if err == nil {
+		addr, err := NewFromCashAddress(ecashaddr)
 		if err != nil {
 			return nil, err
 		}
@@ -57,10 +66,16 @@ func NewFromCashAddress(addr *cashaddress.Address) (*Address, error) {
 
 	switch addr.Prefix {
 	case cashaddress.BitcoinCash.MainNet:
+		fallthrough
+	case cashaddress.ECash.MainNet:
 		network = MainNet
 	case cashaddress.BitcoinCash.TestNet:
+		fallthrough
+	case cashaddress.ECash.TestNet:
 		network = TestNet
 	case cashaddress.BitcoinCash.RegTest:
+		fallthrough
+	case cashaddress.ECash.RegTest:
 		network = RegTest
 	default:
 		return nil, errors.New("invalid address network")
@@ -157,17 +172,17 @@ func (addr *Address) Hex() string {
 
 // CashAddress converts various address fields to create a
 // `*cashaddress.Address`
-func (addr *Address) CashAddress() (*cashaddress.Address, error) {
-	var network = cashaddress.BitcoinCash.MainNet
+func (addr *Address) CashAddress(currency *cashaddress.CurrencyPrefix) (*cashaddress.Address, error) {
+	var network = currency.MainNet
 	var addrtype = cashaddress.P2SH
 
 	switch addr.Network {
 	case MainNet:
-		network = cashaddress.BitcoinCash.MainNet
+		network = currency.MainNet
 	case TestNet:
-		network = cashaddress.BitcoinCash.TestNet
+		network = currency.TestNet
 	case RegTest:
-		network = cashaddress.BitcoinCash.RegTest
+		network = currency.RegTest
 	default:
 		return nil, errors.New("invalid address network")
 	}
@@ -185,6 +200,18 @@ func (addr *Address) CashAddress() (*cashaddress.Address, error) {
 		Prefix:  network,
 		Payload: addr.Payload,
 	}, nil
+}
+
+// BitcoinCashAddress converts various address fields to create a
+// `*cashaddress.Address`
+func (addr *Address) BitcoinCashAddress() (*cashaddress.Address, error) {
+	return addr.CashAddress(&cashaddress.BitcoinCash)
+}
+
+// ECashAddress converts various address fields to create a
+// `*cashaddress.Address`
+func (addr *Address) ECashAddress() (*cashaddress.Address, error) {
+	return addr.CashAddress(&cashaddress.ECash)
 }
 
 // Legacy returns a legacy address struct with the appropriate fields set to
