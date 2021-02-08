@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/schancel/cashaddr-converter/baseconv"
+	"github.com/Fabcien/cashaddr-converter/baseconv"
 )
 
 // FromCashAddr takes a CashAddr URI string, and returns and unpacked

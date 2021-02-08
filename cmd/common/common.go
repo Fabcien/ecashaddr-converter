@@ -1,6 +1,6 @@
 package common
 
-import "github.com/schancel/cashaddr-converter/address"
+import "github.com/Fabcien/cashaddr-converter/address"
 
 type Output struct {
 	CashAddr string `json:"cashaddr,omitempty"`

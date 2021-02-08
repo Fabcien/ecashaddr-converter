@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/schancel/cashaddr-converter/baseconv"
+	"github.com/Fabcien/cashaddr-converter/baseconv"
 )
 
 // ToCashAddr expects a RawAddress and a prefix, and returns the CashAddr URI,

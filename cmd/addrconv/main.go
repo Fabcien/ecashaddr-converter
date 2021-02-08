@@ -7,8 +7,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/schancel/cashaddr-converter/address"
-	"github.com/schancel/cashaddr-converter/cmd/common"
+	"github.com/Fabcien/cashaddr-converter/address"
+	"github.com/Fabcien/cashaddr-converter/cmd/common"
 )
 
 func usage() {

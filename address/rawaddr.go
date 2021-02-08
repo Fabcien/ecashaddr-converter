@@ -6,8 +6,8 @@ import (
 	"math/big"
 	"strings"
 
-	"github.com/schancel/cashaddr-converter/cashaddress"
-	"github.com/schancel/cashaddr-converter/legacy"
+	"github.com/Fabcien/cashaddr-converter/cashaddress"
+	"github.com/Fabcien/cashaddr-converter/legacy"
 )
 
 type AddressType byte
