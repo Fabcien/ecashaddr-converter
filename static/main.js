@@ -322,21 +322,7 @@ const scenes = {
 
   error: (scenes, state) => {
     if (state.error.length < 1) {
-      return `
-        <div id="message-container">
-          <div id="message">
-            <p>
-              Enter an ECash address below to convert it into the Bitcoin Cash
-              format or Legacy format.
-            </p>
-            <p>
-              See
-              <a href="https://www.bitcoinabc.org">https://www.bitcoinabc.org/</a>
-              for more information.
-            </p>
-          </div>
-        </div>
-      `;
+      return ``;
     } else {
       return `
         <div id="message-container">
