@@ -120,7 +120,7 @@ function integrate(state, action, payload) {
     let isValid = true;
 
     if (state.form.address.length < 1) {
-      message = 'Please enter a Bitcoin Cash address to convert.';
+      message = 'Please enter an eCash address to convert.';
       isValid = false;
     }
 
@@ -268,7 +268,7 @@ const scenes = {
         </button>
         <button class="tab${state.tab === 'bitcoincashaddr' ? ' selected-tab' : ''}"
           id="bitcoincashaddr-tab" name="bitcoincashaddr">
-          Bitcoin Cash
+          eCash
         </button>
         <button class="tab${state.tab === 'legacy' ? ' selected-tab' : ''}"
           id="legacy-tab" name="legacy">
@@ -296,7 +296,7 @@ const scenes = {
             name="bitcoincashaddr"
             value="${state.address.bitcoincashaddr}" />
           <button id="copy-bitcoincashaddr"
-            title="Copy Bitcoin Cash address to clipboard"
+            title="Copy eCash address to clipboard"
             name="copy-bitcoincashaddr">
             <span class="ion-clipboard"></span>
           </button>
