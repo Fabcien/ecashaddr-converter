@@ -264,7 +264,7 @@ const scenes = {
       <div id="tabs">
         <button class="tab${state.tab === 'ecashaddr' ? ' selected-tab' : ''}"
           id="ecashaddr-tab" name="ecashaddr">
-          ECash
+          eCash
         </button>
         <button class="tab${state.tab === 'bitcoincashaddr' ? ' selected-tab' : ''}"
           id="bitcoincashaddr-tab" name="bitcoincashaddr">
@@ -282,7 +282,7 @@ const scenes = {
             name="ecashaddr"
             value="${state.address.ecashaddr}" />
           <button id="copy-ecashaddr"
-            title="Copy ECash address to clipboard"
+            title="Copy eCash address to clipboard"
             name="copy-ecashaddr">
             <span class="ion-clipboard"></span>
           </button>
