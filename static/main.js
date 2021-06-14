@@ -268,7 +268,7 @@ const scenes = {
         </button>
         <button class="tab${state.tab === 'bitcoincashaddr' ? ' selected-tab' : ''}"
           id="bitcoincashaddr-tab" name="bitcoincashaddr">
-          eCash
+          Bitcoin Cash
         </button>
         <button class="tab${state.tab === 'legacy' ? ' selected-tab' : ''}"
           id="legacy-tab" name="legacy">
